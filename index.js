@@ -3,7 +3,7 @@ const {
   PropTypes,
   Component,
 } = React;
-const { ViewPropTypes } = ReactNative = require('react-native');
+const ReactNative = require('react-native');
 const {
   Dimensions,
   View,
@@ -34,7 +34,7 @@ const ScrollableTabView = React.createClass({
     onChangeTab: PropTypes.func,
     onScroll: PropTypes.func,
     renderTabBar: PropTypes.any,
-    style: ViewPropTypes.style,
+    style: View.propTypes.style,
     contentProps: PropTypes.object,
     scrollWithoutAnimation: PropTypes.bool,
     locked: PropTypes.bool,
@@ -231,6 +231,18 @@ const ScrollableTabView = React.createClass({
 
   _children(children = this.props.children) {
     return React.Children.map(children, (child) => child);
+  },
+
+  setNativeProps(scroll) {
+    if(scroll){
+      this.scrollView.setNativeProps({
+        scrollEnabled: true,
+      });
+    } else {
+      this.scrollView.setNativeProps({
+        scrollEnabled: false,
+      });
+    }
   },
 
   render() {
